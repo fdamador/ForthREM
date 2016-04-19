@@ -1,4 +1,5 @@
 \ 2016-04-18  EW  changed for ProSnap ProMini rev. 13
+\ copyright 2016 by Franklin Amador
 \ hw layout
 \ arduino | atmega328p                | ProtoSnap ProMini with future NovaREM parts
 \      D0 |        PD0   rx	      	  |   Tx-0    (FTDI)
