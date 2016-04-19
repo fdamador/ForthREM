@@ -1,2 +1,2 @@
 # ForthREM
-REM dream mask usin amforth
+REM dream mask using amforth v6.1
