@@ -197,7 +197,7 @@ user buffer: custom
 	custom user.cuetype @ 	9   sw2?mode
 ;
 : Mode9 () 							\ Set Adjustment Mode (0 to 11)
-	sensitivity @ 11 sw2?mode
+	sensitivity @ 			11  sw2?mode
 ;
 
 \ --- REM Main Routine -------------------------------------------------
