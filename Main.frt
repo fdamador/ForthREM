@@ -1,4 +1,4 @@
-\ 2016-04-18  EW  changed for ProSnap ProMini rev. 13
+\ 2016-04-18  FDA  changed for ProSnap ProMini rev. 13
 \ copyright 2016 by Franklin Amador
 \ hw layout
 \ arduino | atmega328p                | ProtoSnap ProMini with future NovaREM parts
@@ -24,7 +24,7 @@
 \      A3 |        PC3    adc3	      |   
 \      A4 |        PC4    adc4  sda   |   
 \      A5 |        PC5    adc5  scl   |
-
+\Note: $ to indicate hexadecimal, % for binary and & for decimal numbers (FORTH 2012)
 \ --- Include Libraries -----------------------------------------------
 #include lib/multitask.frt
 #include lib/case.frt
@@ -67,7 +67,7 @@ begin-structure set
 	field: set.rate
 	field: set.number
 	field: set.intensity
-end- structure
+end-structure
 
 set buffer: unit
 
@@ -76,13 +76,13 @@ begin-structure user
 	field: user.rate
 	field: user.number
 	field: user.intensity
-end- structure
+end-structure
 
 user buffer: custom
 
 \--- Messages -------------------------------------------------
 : msg_quit
-  ." press switch 1 (D7) to quit" cr
+  ." press switch 1 (D7) to quit" cr 
 ;
 
 \ --- Debounce sw1 --------------------------------------------
@@ -220,7 +220,7 @@ user buffer: custom
 		then
 		
 		case
-		 0	of  ." Mode 0 - Off" 			Mode0 endof
+		 0	of  ." Mode 0 - Sleep" 			Mode0 endof
 		 1	of  ." Mode 1 - Adjustable Setting" 	Mode1 endof
 		 2	of  ." Mode 2 - Light Sleep" 		Mode2 endof
 		 3	of  ." Mode 3 - Medium Sleep" 		Mode3 endof
@@ -240,4 +240,4 @@ user buffer: custom
 	key drop
  ;
  
- ; Turnkey-app 0 begin NovaREM 1000 ms until :  
+: Turnkey-app 0 begin NovaREM 1000 ms until ;  
