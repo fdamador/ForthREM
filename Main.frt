@@ -130,17 +130,17 @@ user buffer: custom
 	submode !
 	begin
 		sw2? if
-		  submode @ 1+
-		  dup submax_mode > if drop 0 then 
-		  dup submode !
-		  . cr
+			submode @ 1+
+			dup submax_mode > if drop 0 then 
+			dup submode !
+			. cr
 		then
 		
 		\wait some
 		1delay @ 5 * ms
 		key? 
-	unit
-	key drop	
+	until
+	key drop submode @	
 ;
 \ --- Test Cues ---------------------------------------------
 : TestCues 
@@ -164,40 +164,44 @@ user buffer: custom
 	Start 
 ; 
 : Mode2 () 							\ Light Sleep Settings
-	$6 unit set.cuetype !
-	$2 unit set.rate !
-	$2 unit set.number !
-	$2 unit set.intensity !
+	6 unit set.cuetype !
+	2 unit set.rate !
+	2 unit set.number !
+	2 unit set.intensity !
 	Start 
 ; 
 : Mode3 ()  						\ Medium Sleep Settings
-	$6 unit set.cuetype !
-	$2 unit set.rate !
-	$6 unit set.number !
-	$4 unit set.intensity !
+	6 unit set.cuetype !
+	2 unit set.rate !
+	6 unit set.number !
+	4 unit set.intensity !
 	Start 
 ; 
 : Mode4 ()  						\ Deep Sleep Settings
-	$7  unit set.cuetype !
-	$2  unit set.rate !
-	$10 unit set.number !
-	$5  unit set.intensity !
+	7  unit set.cuetype !
+	2  unit set.rate !
+	10 unit set.number !
+	5  unit set.intensity !
 	Start 
 ; 
-: Mode5 () 							\ Set cue numbers (0 to 0xFF/256)
-	custom user.number @ 	255 sw2?mode
+: Mode5 () 							\ Set cue numbers (0 to 0xFF/255)
+	custom user.number @ 	255 sw2?mode custom user.number !
+	TestCues
 ;
 : Mode6 () 							\ Set cue intensity (0 to 11)
-	custom user.intensity @ 11  sw2?mode
+	custom user.intensity @ 11  sw2?mode custom user.intensity !
+	TestCues
 ;
 : Mode7 () 							\ Set cue numbers (0 to 11)
-	custom user.rate @ 		11  sw2?mode
+	custom user.rate @ 	11  sw2?mode custom user.rate !
+	TestCues
 ;
 : Mode8 () 							\ Set cue Type (0 to 9)
-	custom user.cuetype @ 	9   sw2?mode
+	custom user.cuetype @ 	9   sw2?mode custom user.cuetype !
+	TestCues
 ;
 : Mode9 () 							\ Set Adjustment Mode (0 to 11)
-	sensitivity @ 			11  sw2?mode
+	sensitivity @ 		11  sw2?mode sensitivity !
 ;
 
 \ --- REM Main Routine -------------------------------------------------
