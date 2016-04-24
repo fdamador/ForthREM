@@ -26,11 +26,12 @@
 \      A5 |        PC5    adc5  scl   |
 
 \ --- Include Libraries -----------------------------------------------
-include lib/multitask.frt
-include lib/case.frt
-include lib/ms.frt
-include lib/bitnames.frt
-include lib/wiring_analog.frt
+#include lib/multitask.frt
+#include lib/case.frt
+#include lib/ms.frt
+#include lib/bitnames.frt
+#include lib/wiring_analog.frt
+#include lib/structure.frt
 
 decimal
 
@@ -53,17 +54,38 @@ PORTC 0 portpin: rlight
 \PORTC 1 portpin: llight
 
 \ --- Variables -----------------------------------------------
-variable sleepsettings 4 cells allot
-5 buffer: sleepsettings
 variable 1delay 20 1delay !
 variable mode 0 mode !
+variable submode 0 submode !
+variable submax_mode 0 submax_mode !
+variable sensitivity 0 sensitivity !
 10 constant max_mode
 
+\--- Structure ------------------------------------------------
+begin-structure set
+	field: set.cuetype
+	field: set.rate
+	field: set.number
+	field: set.intensity
+end- structure
+
+set buffer: unit
+
+begin-structure user
+	field: user.cuetype
+	field: user.rate
+	field: user.number
+	field: user.intensity
+end- structure
+
+user buffer: custom
+
+\--- Messages -------------------------------------------------
 : msg_quit
   ." press switch 1 (D7) to quit" cr
 ;
 
-\ --- switches -----------------------------------------------
+\ --- Debounce sw1 --------------------------------------------
 : sw1? ( -- true|false )
   sw1 pin_low? if       \ if switch1 pressed
     &20 ms              \ { wait a little
@@ -76,29 +98,109 @@ variable mode 0 mode !
     0                   \ { "false" on stack
   then                  \ }
 ;
-
-\ --- buzzer -------------------------------------------------
-
+\ --- Debounce sw2 --------------------------------------------
+: sw2? ( -- true|false )
+  sw2 pin_low? if       \ if switch1 pressed
+    &20 ms              \ { wait a little
+    sw2 pin_low? if     \   if switch1 still pressed
+      -1                \   { "true" on stack
+    else                \   }else
+      0                 \   { "false on stack
+    then                \   }
+  else                  \ }else
+    0                   \ { "false" on stack
+  then                  \ }
+;
+\ --- buzzer ------------------------------------------------
 \ 2 ms T_period =^= 500 Hz
 : buzz ( cycles -- )
   0 ?do bz low 1ms bz high 1ms loop
 ;
-
+\ --- light sensor ------------------------------------------
 : .rlight
 	rlight pin>channel adc.get . cr
 ;
+\ --- Test with LED ------------------------------------------
+: Test.LED
 
-: Mode0 () sleep ;
-: Mode1 () ;
-: Mode2 () ;
-: Mode3 () ;
-: Mode4 () ;
-: Mode5 () ;
-: Mode6 () ;
-: Mode7 () ;
-: Mode8 () ;
-: Mode9 () ;
+;
+\ --- sw2 Mode Change ----------------------------------------
+: sw2?mode ( current_submode max_mode - )
+	submax_mode !
+	submode !
+	begin
+		sw2? if
+		  submode @ 1+
+		  dup submax_mode > if drop 0 then 
+		  dup submode !
+		  . cr
+		then
+		
+		\wait some
+		1delay @ 5 * ms
+		key? 
+	unit
+	key drop	
+;
+\ --- Test Cues ---------------------------------------------
+: TestCues 
+;
+\ --- Dreamer ---------------------------------------------
+: Dreamer 
+;
+\ --- init Dreamer ----------------------------------------
+: Start
+	TestCues
+	Dreamer
+;
+\ --- Modes -------------------------------------------------
+: Mode0 () sleep 					\ Off unit in sleep mode
+; 
+: Mode1 () 							\ User Adjustable Sleep Settings
+	custom user.cuetype @   unit set.cuetype !
+	custom user.rate @      unit set.rate !
+	custom user.number @    unit set.number !
+	custom user.intensity @ unit set.intensity !
+	Start 
+; 
+: Mode2 () 							\ Light Sleep Settings
+	$6 unit set.cuetype !
+	$2 unit set.rate !
+	$2 unit set.number !
+	$2 unit set.intensity !
+	Start 
+; 
+: Mode3 ()  						\ Medium Sleep Settings
+	$6 unit set.cuetype !
+	$2 unit set.rate !
+	$6 unit set.number !
+	$4 unit set.intensity !
+	Start 
+; 
+: Mode4 ()  						\ Deep Sleep Settings
+	$7  unit set.cuetype !
+	$2  unit set.rate !
+	$10 unit set.number !
+	$5  unit set.intensity !
+	Start 
+; 
+: Mode5 () 							\ Set cue numbers (0 to 0xFF/256)
+	custom user.number @ 	255 sw2?mode
+;
+: Mode6 () 							\ Set cue intensity (0 to 11)
+	custom user.intensity @ 11  sw2?mode
+;
+: Mode7 () 							\ Set cue numbers (0 to 11)
+	custom user.rate @ 		11  sw2?mode
+;
+: Mode8 () 							\ Set cue Type (0 to 9)
+	custom user.cuetype @ 	9   sw2?mode
+;
+: Mode9 () 							\ Set Adjustment Mode (0 to 11)
+	sensitivity @ 11 sw2?mode
+;
 
+\ --- REM Main Routine -------------------------------------------------
 : NovaREM ( selector -- )
 	init
 	0 mode !
@@ -129,6 +231,7 @@ variable mode 0 mode !
 		\wait some
 		1delay @ 5 * ms
 		key? 
+		
 	until
 	key drop
  ;
