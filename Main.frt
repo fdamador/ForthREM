@@ -24,8 +24,11 @@
 \      A3 |        PC3    adc3	      |   
 \      A4 |        PC4    adc4  sda   |   
 \      A5 |        PC5    adc5  scl   |
+\
 \Note: $ to indicate hexadecimal, % for binary and & for decimal numbers (FORTH 2012)
+\
 \ --- Include Libraries -----------------------------------------------
+#include lib/atmega328p.frt
 #include lib/multitask.frt
 #include lib/case.frt
 #include lib/ms.frt
@@ -84,7 +87,9 @@ user buffer: custom
 : msg_quit
   ." press switch 1 (D7) to quit" cr 
 ;
-
+: unit.delay ( -- )
+	unit set.rate @ 5 * ms ;
+;
 \ --- Debounce sw1 --------------------------------------------
 : sw1? ( -- true|false )
   sw1 pin_low? if       \ if switch1 pressed
@@ -114,18 +119,21 @@ user buffer: custom
 \ --- buzzer ------------------------------------------------
 \ 2 ms T_period =^= 500 Hz
 : buzz ( cycles -- )
-  0 ?do bz low 1ms bz high 1ms loop
+  0 ?do bz low dup 5 * ms bz high 5 * ms loop
 ;
 \ --- light sensor ------------------------------------------
 : .rlight
 	rlight pin>channel adc.get . cr
+;
+: .llight
+	llight pin>channel adc.get . cr
 ;
 \ --- Test with LED ------------------------------------------
 : Test.LED
 
 ;
 \ --- sw2 Mode Change ----------------------------------------
-: sw2?mode ( current_submode max_mode - )
+: sw2?mode ( current_submode max_mode -- Updated_submode)
 	submax_mode !
 	submode !
 	begin
@@ -144,6 +152,19 @@ user buffer: custom
 ;
 \ --- Test Cues ---------------------------------------------
 : TestCues 
+	unit set.number @ 
+	unit set.cuetype @ 
+	\create case for 0 thru 7 for different cue types
+	case	\Off: left led		right led   buzz    On:		   left led     right led    	buzz
+	 0	of  nop endof
+	 1	of  0 ?do 						  	bz low  unit.delay 						  		bz high unit.delay loop endof
+	 2	of  0 ?do 				rgrnled low 		unit.delay 				rgrnled high			unit.delay loop endof
+	 3	of  0 ?do 				rgrnled low bz low  unit.delay 				rgrnled high 	bz high unit.delay loop endof
+	 4	of  0 ?do lgrnled low		   				unit.delay lgrnled high	   						unit.delay loop endof
+	 5	of  0 ?do lgrnled low 				bz low  unit.delay lgrnled high					bz high	unit.delay loop endof
+	 6	of  0 ?do lgrnled low 	rgrnled low 		unit.delay lgrnled high	rgrnled high			unit.delay loop endof
+	 7	of  0 ?do lgrnled low 	rgrnled low bz low	unit.delay lgrnled high	rgrnled high	bz high	unit.delay loop endof
+	endcase
 ;
 \ --- Dreamer ---------------------------------------------
 : Dreamer 
@@ -154,53 +175,53 @@ user buffer: custom
 	Dreamer
 ;
 \ --- Modes -------------------------------------------------
-: Mode0 () sleep 					\ Off unit in sleep mode
+: Mode0 ( -- ) sleep 					\ Off unit in sleep mode
 ; 
-: Mode1 () 							\ User Adjustable Sleep Settings
+: Mode1 ( -- ) 							\ User Adjustable Sleep Settings
 	custom user.cuetype @   unit set.cuetype !
 	custom user.rate @      unit set.rate !
 	custom user.number @    unit set.number !
 	custom user.intensity @ unit set.intensity !
 	Start 
 ; 
-: Mode2 () 							\ Light Sleep Settings
+: Mode2 ( -- ) 							\ Light Sleep Settings
 	6 unit set.cuetype !
 	2 unit set.rate !
 	2 unit set.number !
 	2 unit set.intensity !
 	Start 
 ; 
-: Mode3 ()  						\ Medium Sleep Settings
+: Mode3 ( -- )  						\ Medium Sleep Settings
 	6 unit set.cuetype !
 	2 unit set.rate !
 	6 unit set.number !
 	4 unit set.intensity !
 	Start 
 ; 
-: Mode4 ()  						\ Deep Sleep Settings
+: Mode4 ( -- )  						\ Deep Sleep Settings
 	7  unit set.cuetype !
 	2  unit set.rate !
 	10 unit set.number !
 	5  unit set.intensity !
 	Start 
 ; 
-: Mode5 () 							\ Set cue numbers (0 to 0xFF/255)
+: Mode5 ( -- ) 							\ Set cue numbers (0 to 254)
 	custom user.number @ 	255 sw2?mode custom user.number !
 	TestCues
 ;
-: Mode6 () 							\ Set cue intensity (0 to 11)
+: Mode6 ( -- ) 							\ Set cue intensity (0 to 10)
 	custom user.intensity @ 11  sw2?mode custom user.intensity !
 	TestCues
 ;
-: Mode7 () 							\ Set cue numbers (0 to 11)
+: Mode7 ( -- ) 							\ Set cue numbers (0 to 10)
 	custom user.rate @ 	11  sw2?mode custom user.rate !
 	TestCues
 ;
-: Mode8 () 							\ Set cue Type (0 to 9)
+: Mode8 ( -- ) 							\ Set cue Type (0 to 8)
 	custom user.cuetype @ 	9   sw2?mode custom user.cuetype !
 	TestCues
 ;
-: Mode9 () 							\ Set Adjustment Mode (0 to 11)
+: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10)
 	sensitivity @ 		11  sw2?mode sensitivity !
 ;
 
