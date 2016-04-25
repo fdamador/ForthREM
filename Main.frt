@@ -155,15 +155,15 @@ user buffer: custom
 	unit set.number @ 
 	unit set.cuetype @ 
 	\create case for 0 thru 7 for different cue types
-	case	\Off: left led		right led   buzz    On:		   left led     right led    	buzz
+	case	\Off:     left led	right led   buzz    On:	       left led         right led    	buzz
 	 0	of  nop endof
-	 1	of  0 ?do 						  	bz low  unit.delay 						  		bz high unit.delay loop endof
-	 2	of  0 ?do 				rgrnled low 		unit.delay 				rgrnled high			unit.delay loop endof
-	 3	of  0 ?do 				rgrnled low bz low  unit.delay 				rgrnled high 	bz high unit.delay loop endof
-	 4	of  0 ?do lgrnled low		   				unit.delay lgrnled high	   						unit.delay loop endof
-	 5	of  0 ?do lgrnled low 				bz low  unit.delay lgrnled high					bz high	unit.delay loop endof
-	 6	of  0 ?do lgrnled low 	rgrnled low 		unit.delay lgrnled high	rgrnled high			unit.delay loop endof
-	 7	of  0 ?do lgrnled low 	rgrnled low bz low	unit.delay lgrnled high	rgrnled high	bz high	unit.delay loop endof
+	 1	of  0 ?do 			    bz low  unit.delay 					bz high unit.delay loop endof
+	 2	of  0 ?do 		rgrnled low 	    unit.delay 			rgrnled high		unit.delay loop endof
+	 3	of  0 ?do 		rgrnled low bz low  unit.delay 			rgrnled high 	bz high unit.delay loop endof
+	 4	of  0 ?do lgrnled low	  		    unit.delay lgrnled high	   			unit.delay loop endof
+	 5	of  0 ?do lgrnled low 		    bz low  unit.delay lgrnled high			bz high	unit.delay loop endof
+	 6	of  0 ?do lgrnled low 	rgrnled low 	    unit.delay lgrnled high	rgrnled high		unit.delay loop endof
+	 7	of  0 ?do lgrnled low 	rgrnled low bz low  unit.delay lgrnled high	rgrnled high	bz high	unit.delay loop endof
 	endcase
 ;
 \ --- Dreamer ---------------------------------------------
