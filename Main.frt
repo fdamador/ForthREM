@@ -129,8 +129,8 @@ user buffer: custom
 	llight pin>channel adc.get . cr
 ;
 \ --- Test with LED ------------------------------------------
-: Test.LED
-
+: Test.LED ( cycles -- )
+  0 ?do lgrnled low rgrnled low dup 5 * ms lgrnled high rgrnled high 5 * ms loop 
 ;
 \ --- sw2 Mode Change ----------------------------------------
 : sw2?mode ( current_submode max_mode -- Updated_submode)
@@ -230,6 +230,7 @@ user buffer: custom
 	init
 	0 mode !
 	20 1delay !
+	100 Test.LED
 	
 	begin
 		
