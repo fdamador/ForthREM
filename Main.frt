@@ -139,8 +139,8 @@ user buffer: custom
 	begin
 		sw2? if
 			submode @ 1+
-			dup submax_mode > if drop 0 then 
-			dup submode !
+			dup submax_mode @ > if drop 0 then 
+			drop dup submode !
 			. cr
 		then
 		
@@ -154,9 +154,9 @@ user buffer: custom
 : TestCues 
 	unit set.number @ 
 	unit set.cuetype @ 
-	\create case for 0 thru 7 for different cue types
+	\create case for 0 thru 9 for different cue types
 	case	\Off:     left led	right led   buzz    On:	       left led         right led    	buzz
-	 0	of  nop endof
+	 0	of  noop endof
 	 1	of  0 ?do 			    bz low  unit.delay 					bz high unit.delay loop endof
 	 2	of  0 ?do 		rgrnled low 	    unit.delay 			rgrnled high		unit.delay loop endof
 	 3	of  0 ?do 		rgrnled low bz low  unit.delay 			rgrnled high 	bz high unit.delay loop endof
@@ -164,13 +164,15 @@ user buffer: custom
 	 5	of  0 ?do lgrnled low 		    bz low  unit.delay lgrnled high			bz high	unit.delay loop endof
 	 6	of  0 ?do lgrnled low 	rgrnled low 	    unit.delay lgrnled high	rgrnled high		unit.delay loop endof
 	 7	of  0 ?do lgrnled low 	rgrnled low bz low  unit.delay lgrnled high	rgrnled high	bz high	unit.delay loop endof
+	 8	of  0 ?do lgrnled high 	rgrnled low 	    unit.delay lgrnled low	rgrnled high		unit.delay loop endof
+	 9	of  0 ?do lgrnled high	rgrnled low bz low  unit.delay lgrnled low	rgrnled high	bz high	unit.delay loop endof
 	endcase
 ;
 \ --- Dreamer ---------------------------------------------
-: Dreamer 
-;
+: Dreamer ( -- )
+32q	
 \ --- init Dreamer ----------------------------------------
-: Start
+: Start ( -- )
 	TestCues
 	Dreamer
 ;
@@ -218,10 +220,9 @@ user buffer: custom
 	TestCues
 ;
 : Mode8 ( -- ) 							\ Set cue Type (0 to 8)
-	custom user.cuetype @ 	9   sw2?mode custom user.cuetype !
+	custom user.cuetype @ 	11   sw2?mode custom user.cuetype !
 	TestCues
-;
-: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10)
+;: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10) 
 	sensitivity @ 		11  sw2?mode sensitivity !
 ;
 

@@ -1,7 +1,11 @@
 # ForthREM
-REM dream mask using amforth v6.1
+REM dream mask using "amforth v6.1 ATmega328p"
 
-.
+Settings:
+BAUD = 38400
+EXTENDED = 0xFC
+FUSEH = 0xD9
+FUSEL = 0xFF
 
 Licensing
 =========
