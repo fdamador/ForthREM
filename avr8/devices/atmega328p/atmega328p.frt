@@ -1,6 +1,5 @@
 \ Partname: ATmega328P
 \ generated automatically
-
 \ USART0
 &198 constant UDR0	\ USART I/O Data Register
 &192 constant UCSR0A	\ USART Control and Status Register A

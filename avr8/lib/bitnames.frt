@@ -20,6 +20,7 @@
 \ PORTD F bitmask: PD.F  ( define the lower nibble of port d )
 \ PD.F pin@              ( get the lower nibble bits )
 \ 5 PD.F pin!            ( put the lower nibble bits, do not change the others )
+#include builds.frt
 
 : bitmask: ( C: "ccc" portadr bmask -- ) ( R: -- pinmask portadr )
   <builds

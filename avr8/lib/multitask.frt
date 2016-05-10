@@ -21,6 +21,7 @@
 \ than r@ due to hardware characteristics.
 
 \ marker _multitask_
+#include forth2012/core/is.frt
 
 decimal
 

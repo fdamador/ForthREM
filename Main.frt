@@ -25,36 +25,28 @@
 \      A4 |        PC4    adc4  sda   |   
 \      A5 |        PC5    adc5  scl   |
 \
-\Note: $ to indicate hexadecimal, % for binary and & for decimal numbers (FORTH 2012)
+\ Note: "$" to indicate hexadecimal, "%" for binary and "&" for decimal numbers FORTH 2012
 \
-\ --- Include Libraries -----------------------------------------------
-#include lib/atmega328p.frt
-#include lib/multitask.frt
-#include lib/case.frt
-#include lib/ms.frt
-#include lib/bitnames.frt
-#include lib/wiring_analog.frt
-#include lib/structure.frt
 
 decimal
 
 \ --- Port Assignments -----------------------------------------------
-\PORTB 0 portpin: rIRled
-\PORTB 1 portpin: lredled
-\PORTB 2 portpin: lgrnled
-\PORTB 3 portpin: lbluled
-\PORTB 4 portpin: lIRled
+PORTB 0 portpin: rIRled
+PORTB 1 portpin: lredled
+PORTB 2 portpin: lgrnled
+PORTB 3 portpin: lbluled
+PORTB 4 portpin: lIRled
 PORTB 5 portpin: Led0
 
 PORTD 2 portpin: bz
 PORTD 3 portpin: rredled
-\PORTD 4 portpin: sw2
+PORTD 4 portpin: sw2
 PORTD 5 portpin: rgrnled
 PORTD 6 portpin: rbluled
 PORTD 7 portpin: sw1
 
 PORTC 0 portpin: rlight
-\PORTC 1 portpin: llight
+PORTC 1 portpin: llight
 
 \ --- Variables -----------------------------------------------
 variable 1delay 20 1delay !
@@ -64,7 +56,7 @@ variable submax_mode 0 submax_mode !
 variable sensitivity 0 sensitivity !
 10 constant max_mode
 
-\--- Structure ------------------------------------------------
+\  --- Structure ------------------------------------------------
 begin-structure set
 	field: set.cuetype
 	field: set.rate
@@ -83,7 +75,7 @@ end-structure
 
 user buffer: custom
 
-\--- Messages -------------------------------------------------
+\ --- Messages -------------------------------------------------
 : msg_quit
   ." press switch 1 (D7) to quit" cr 
 ;
@@ -144,7 +136,7 @@ user buffer: custom
 			. cr
 		then
 		
-		\wait some
+		\ wait some
 		1delay @ 5 * ms
 		key? 
 	until
@@ -154,30 +146,40 @@ user buffer: custom
 : TestCues 
 	unit set.number @ 
 	unit set.cuetype @ 
-	\create case for 0 thru 9 for different cue types
-	case	\Off:     left led	right led   buzz    On:	       left led         right led    	buzz
+	\ create case for 0 thru 9 for different cue types
+	case	\ Off:     left led	right led   buzz    On:	       left led         right led    	buzz
 	 0	of  noop endof
-	 1	of  0 ?do 			    bz low  unit.delay 					bz high unit.delay loop endof
-	 2	of  0 ?do 		rgrnled low 	    unit.delay 			rgrnled high		unit.delay loop endof
-	 3	of  0 ?do 		rgrnled low bz low  unit.delay 			rgrnled high 	bz high unit.delay loop endof
-	 4	of  0 ?do lgrnled low	  		    unit.delay lgrnled high	   			unit.delay loop endof
-	 5	of  0 ?do lgrnled low 		    bz low  unit.delay lgrnled high			bz high	unit.delay loop endof
-	 6	of  0 ?do lgrnled low 	rgrnled low 	    unit.delay lgrnled high	rgrnled high		unit.delay loop endof
-	 7	of  0 ?do lgrnled low 	rgrnled low bz low  unit.delay lgrnled high	rgrnled high	bz high	unit.delay loop endof
-	 8	of  0 ?do lgrnled high 	rgrnled low 	    unit.delay lgrnled low	rgrnled high		unit.delay loop endof
-	 9	of  0 ?do lgrnled high	rgrnled low bz low  unit.delay lgrnled low	rgrnled high	bz high	unit.delay loop endof
+	 1	of  0 ?do bz low  unit.delay
+				  bz high unit.delay loop endof
+	 2	of  0 ?do rgrnled low  unit.delay
+				  rgrnled high unit.delay loop endof
+	 3	of  0 ?do rgrnled low   bz low  unit.delay
+				  rgrnled high 	bz high unit.delay loop endof
+	 4	of  0 ?do lgrnled low	unit.delay
+				  lgrnled high	unit.delay loop endof
+	 5	of  0 ?do lgrnled low  bz low   unit.delay
+				  lgrnled high bz high	unit.delay loop endof
+	 6	of  0 ?do lgrnled low 	rgrnled low  unit.delay 
+	              lgrnled high	rgrnled high unit.delay loop endof
+	 7	of  0 ?do lgrnled low 	rgrnled low  bz low  unit.delay 
+	              lgrnled high	rgrnled high bz high unit.delay loop endof
+	 8	of  0 ?do lgrnled high 	rgrnled low  unit.delay 
+	              lgrnled low	rgrnled high unit.delay loop endof
+	 9	of  0 ?do lgrnled high	rgrnled low  bz low  unit.delay 
+	              lgrnled low	rgrnled high bz high unit.delay loop endof
 	endcase
 ;
 \ --- Dreamer ---------------------------------------------
 : Dreamer ( -- )
-32q	
+;
 \ --- init Dreamer ----------------------------------------
-: Start ( -- )
+: init ( -- )
 	TestCues
 	Dreamer
 ;
 \ --- Modes -------------------------------------------------
-: Mode0 ( -- ) sleep 					\ Off unit in sleep mode
+: Mode0 ( -- )   					\ Off unit in sleep mode
+
 ; 
 : Mode1 ( -- ) 							\ User Adjustable Sleep Settings
 	custom user.cuetype @   unit set.cuetype !
@@ -222,7 +224,8 @@ user buffer: custom
 : Mode8 ( -- ) 							\ Set cue Type (0 to 8)
 	custom user.cuetype @ 	11   sw2?mode custom user.cuetype !
 	TestCues
-;: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10) 
+;
+: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10) 
 	sensitivity @ 		11  sw2?mode sensitivity !
 ;
 
@@ -255,7 +258,7 @@ user buffer: custom
 		 9	of  ." Mode 9 - Adjustable Mode" 	Mode9 endof
 		endcase
 		
-		\wait some
+		\ wait some
 		1delay @ 5 * ms
 		key? 
 		
