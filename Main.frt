@@ -14,7 +14,7 @@
 \      D8 |        PB0    icp	      |   rIRled	  (future)
 \      D9 |        PB1         oc1a   |	  lredled (future)
 \     D10 |        PB2    ss   oc1b   |   lgrnled (future)
-\     D11 |        PB3    mosi oc2a   |   lbluled (future)
+\     D11 |        PB3    mosi oc2a   |   lredled (future)
 \     D12 |        PB4    miso	      |   lIRled    (future)
 \     D13 |        PB5    sck	      |	  Led0	  (default)
 \ 		  |
@@ -29,31 +29,13 @@
 \
 
 decimal
-
-\ --- Port Assignments -----------------------------------------------
-PORTB 0 portpin: rIRled
-PORTB 1 portpin: lredled
-PORTB 2 portpin: lgrnled
-PORTB 3 portpin: lbluled
-PORTB 4 portpin: lIRled
-PORTB 5 portpin: Led0
-
-PORTD 2 portpin: bz
-PORTD 3 portpin: rredled
-PORTD 4 portpin: sw2
-PORTD 5 portpin: rgrnled
-PORTD 6 portpin: rbluled
-PORTD 7 portpin: sw1
-
-PORTC 0 portpin: rlight
-PORTC 1 portpin: llight
-
 \ --- Variables -----------------------------------------------
-variable 1delay 20 1delay !
+variable 1delay 0 1delay !
 variable mode 0 mode !
 variable submode 0 submode !
 variable submax_mode 0 submax_mode !
 variable sensitivity 0 sensitivity !
+variable scalardelay 0 scalardelay !
 10 constant max_mode
 
 \  --- Structure ------------------------------------------------
@@ -74,15 +56,58 @@ begin-structure user
 end-structure
 
 user buffer: custom
+\ --- Port Assignments -----------------------------------------------
+PORTB 0 portpin: rIRled
+PORTB 1 portpin: lredled
+PORTB 2 portpin: lgrnled
+PORTB 3 portpin: lbluled
+PORTB 4 portpin: lIRled
+PORTB 5 portpin: Led0
 
+PORTC 0 portpin: rlight
+PORTC 1 portpin: llight
+
+PORTD 2 portpin: bz
+PORTD 3 portpin: rbluled
+PORTD 4 portpin: sw2
+PORTD 5 portpin: rgrnled
+PORTD 6 portpin: rredled
+PORTD 7 portpin: sw1
+
+\ --- Port Configurations: Initiliaze
+: init
+  20 1delay !
+  10 unit set.rate !
+  10 unit set.number ! 
+   1 unit set.cuetype !
+   1 scalardelay !
+   1 sensitivity !
+  rIRled high rIRled pin_output
+  lredled high lredled pin_output
+  lgrnled high lgrnled pin_output
+  lbluled high lbluled pin_output
+  lIRled high lIRled pin_output
+  Led0 low Led0 pin_output
+  
+  adc.init
+  rlight adc.init.pin
+  llight adc.init.pin
+  
+  bz low bz pin_output
+  rbluled high rbluled pin_output
+  sw2 high sw2 pin_input
+  rgrnled high rgrnled pin_output
+  rredled high rredled pin_output
+  sw1 high sw1 pin_input
+;
 \ --- Messages -------------------------------------------------
 : msg_quit
-  ." press switch 1 (D7) to quit" cr 
+  ." press switch 1 (Button) to quit" cr 
 ;
 : unit.delay ( -- )
-	unit set.rate @ 5 * ms ;
+	unit set.rate @ scalardelay @ * ms ;
 ;
-\ --- Debounce sw1 --------------------------------------------
+\ --- Debounce sw1 ----------6----------------------------------
 : sw1? ( -- true|false )
   sw1 pin_low? if       \ if switch1 pressed
     &20 ms              \ { wait a little
@@ -95,7 +120,7 @@ user buffer: custom
     0                   \ { "false" on stack
   then                  \ }
 ;
-\ --- Debounce sw2 --------------------------------------------
+\ --- Debounce sw2 (future) --------------------------------------
 : sw2? ( -- true|false )
   sw2 pin_low? if       \ if switch1 pressed
     &20 ms              \ { wait a little
@@ -111,18 +136,23 @@ user buffer: custom
 \ --- buzzer ------------------------------------------------
 \ 2 ms T_period =^= 500 Hz
 : buzz ( cycles -- )
-  0 ?do bz low dup 5 * ms bz high 5 * ms loop
+  0 ?do bz low 1ms bz high 1ms loop
 ;
+
+: buzzer ( rate -- )
+  100 * dup dup  buzz 2 / ms buzz
+;
+
 \ --- light sensor ------------------------------------------
-: .rlight
-	rlight pin>channel adc.get . cr
+: .rlight.
+	rlight analog_read 4 u.r
 ;
 : .llight
-	llight pin>channel adc.get . cr
+	llight analog_read 4 u.r
 ;
 \ --- Test with LED ------------------------------------------
 : Test.LED ( cycles -- )
-  0 ?do lgrnled low rgrnled low dup 5 * ms lgrnled high rgrnled high 5 * ms loop 
+  0 ?do lgrnled low rgrnled low 50 ms lgrnled high rgrnled high 50 ms loop 
 ;
 \ --- sw2 Mode Change ----------------------------------------
 : sw2?mode ( current_submode max_mode -- Updated_submode)
@@ -149,8 +179,7 @@ user buffer: custom
 	\ create case for 0 thru 9 for different cue types
 	case	\ Off:     left led	right led   buzz    On:	       left led         right led    	buzz
 	 0	of  noop endof
-	 1	of  0 ?do bz low  unit.delay
-				  bz high unit.delay loop endof
+	 1	of  0 ?do bz low  unit.delay bz high unit.delay loop endof
 	 2	of  0 ?do rgrnled low  unit.delay
 				  rgrnled high unit.delay loop endof
 	 3	of  0 ?do rgrnled low   bz low  unit.delay
@@ -172,8 +201,8 @@ user buffer: custom
 \ --- Dreamer ---------------------------------------------
 : Dreamer ( -- )
 ;
-\ --- init Dreamer ----------------------------------------
-: init ( -- )
+\ --- Start Dreamer ----------------------------------------
+: Start ( -- )
 	TestCues
 	Dreamer
 ;
@@ -231,7 +260,7 @@ user buffer: custom
 
 \ --- REM Main Routine -------------------------------------------------
 : NovaREM ( selector -- )
-	init
+	Start
 	0 mode !
 	20 1delay !
 	100 Test.LED
@@ -265,5 +294,4 @@ user buffer: custom
 	until
 	key drop
  ;
- 
-: Turnkey-app 0 begin NovaREM 1000 ms until ;  
+
