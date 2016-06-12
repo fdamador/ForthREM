@@ -36,9 +36,26 @@ variable submode 0 submode !
 variable submax_mode 0 submax_mode !
 variable sensitivity 0 sensitivity !
 variable scalardelay 0 scalardelay !
-10 constant max_mode
 
-\  --- Structure ------------------------------------------------
+\ --- Dreamer Variables ---------------------------------------
+variable sleepdelay 0 sleepdelay !
+variable rsensor 0 rsensor !
+variable lsensor 0 lsensor !
+variable CueCount 0 CueCount !
+variable Reset 0 Reset !
+variable alarm 0 alarm !
+
+
+\ --- Constant ------------------------------------------------
+  10 constant max_mode
+  20 1delay !
+  10 unit set.rate !
+  10 unit set.number ! 
+   1 unit set.cuetype !
+   1 scalardelay !
+   1 sensitivity !
+   
+\ --- Structure ------------------------------------------------
 begin-structure set
 	field: set.cuetype
 	field: set.rate
@@ -56,6 +73,7 @@ begin-structure user
 end-structure
 
 user buffer: custom
+
 \ --- Port Assignments -----------------------------------------------
 PORTB 0 portpin: rIRled
 PORTB 1 portpin: lredled
@@ -74,14 +92,8 @@ PORTD 5 portpin: rgrnled
 PORTD 6 portpin: rredled
 PORTD 7 portpin: sw1
 
-\ --- Port Configurations: Initiliaze
+\ --- Port Configurations: Initilize ----------------------------------
 : init
-  20 1delay !
-  10 unit set.rate !
-  10 unit set.number ! 
-   1 unit set.cuetype !
-   1 scalardelay !
-   1 sensitivity !
   rIRled high rIRled pin_output
   lredled high lredled pin_output
   lgrnled high lgrnled pin_output
@@ -104,10 +116,11 @@ PORTD 7 portpin: sw1
 : msg_quit
   ." press switch 1 (Button) to quit" cr 
 ;
+\ --- Timers ---------------------------------------------------
 : unit.delay ( -- )
 	unit set.rate @ scalardelay @ * ms ;
 ;
-\ --- Debounce sw1 ----------6----------------------------------
+\ --- Debounce sw1 --------------------------------------------
 : sw1? ( -- true|false )
   sw1 pin_low? if       \ if switch1 pressed
     &20 ms              \ { wait a little
@@ -134,20 +147,17 @@ PORTD 7 portpin: sw1
   then                  \ }
 ;
 \ --- buzzer ------------------------------------------------
-\ 2 ms T_period =^= 500 Hz
-: buzz ( cycles -- )
+: buzz ( cycles -- ) \ 2 ms T_period =^= 500 Hz
   0 ?do bz low 1ms bz high 1ms loop
 ;
-
-: buzzer ( rate -- )
+: buzzer ( rate -- ) \ buzzer start
   100 * dup dup  buzz 2 / ms buzz
 ;
-
 \ --- light sensor ------------------------------------------
-: .rlight.
+: .rlight ( -- analog out ) \ read right sensor
 	rlight analog_read 4 u.r
 ;
-: .llight
+: .llight ( -- analog out ) \ read left sensor
 	llight analog_read 4 u.r
 ;
 \ --- Test with LED ------------------------------------------
@@ -173,7 +183,7 @@ PORTD 7 portpin: sw1
 	key drop submode @	
 ;
 \ --- Test Cues ---------------------------------------------
-: TestCues 
+: TestCues ( -- )
 	unit set.number @ 
 	unit set.cuetype @ 
 	\ create case for 0 thru 9 for different cue types
@@ -199,7 +209,49 @@ PORTD 7 portpin: sw1
 	endcase
 ;
 \ --- Dreamer ---------------------------------------------
+: init.dreamer ( -- )
+	.rlight rsensor ! .llight lsensor !
+	unit.delay 
+;
+: sensor.scale ( n1 n2 - bool)
+	- abs unit set.intensity @ * 100 >
+;
+: sensor.test ( -- True/False )
+	.rlight rsensor sensor.scale
+	.llight lsensor sensor.scale
+	or
+;
+: mode.change ( -- true/false)
+	mode @ dup 0= swap 4 > and
+;
+: dreamalarm (--)
+
+;
 : Dreamer ( -- )
+	0 CueCount !
+	1 Reset !
+	begin
+		init.dreamer
+		sw1? if sleepdelay @ 10 + sleepdelay ! then
+		CueCount @ 1+ CueCount !
+		begin
+			mode.change if 0 Reset ! then
+			icount @ sleepdelay @ > if
+				sensor.test if 
+					CueCount @ 1+ CueCount !
+					( record time need CueCount[32] array)
+					TestCues
+					mode.change sw1? or if 0 Reset ! then
+					alarm if dreamalarm	then
+				else
+					60000 ms
+				then
+			else
+				icount @ 1+ icount !
+				60000 ms
+			then
+		Reset 0= until
+	alarm.clock? Reset or 0= until
 ;
 \ --- Start Dreamer ----------------------------------------
 : Start ( -- )
@@ -207,57 +259,56 @@ PORTD 7 portpin: sw1
 	Dreamer
 ;
 \ --- Modes -------------------------------------------------
-: Mode0 ( -- )   					\ Off unit in sleep mode
+: Mode0 ( -- )  \ Off unit in sleep mode
 
 ; 
-: Mode1 ( -- ) 							\ User Adjustable Sleep Settings
+: Mode1 ( -- ) 	\ User Adjustable Sleep Settings
 	custom user.cuetype @   unit set.cuetype !
 	custom user.rate @      unit set.rate !
 	custom user.number @    unit set.number !
 	custom user.intensity @ unit set.intensity !
 	Start 
 ; 
-: Mode2 ( -- ) 							\ Light Sleep Settings
+: Mode2 ( -- ) 	\ Light Sleep Settings
 	6 unit set.cuetype !
 	2 unit set.rate !
 	2 unit set.number !
 	2 unit set.intensity !
 	Start 
 ; 
-: Mode3 ( -- )  						\ Medium Sleep Settings
+: Mode3 ( -- )  \ Medium Sleep Settings
 	6 unit set.cuetype !
 	2 unit set.rate !
 	6 unit set.number !
 	4 unit set.intensity !
 	Start 
 ; 
-: Mode4 ( -- )  						\ Deep Sleep Settings
+: Mode4 ( -- )  \ Deep Sleep Settings
 	7  unit set.cuetype !
 	2  unit set.rate !
 	10 unit set.number !
 	5  unit set.intensity !
 	Start 
 ; 
-: Mode5 ( -- ) 							\ Set cue numbers (0 to 254)
-	custom user.number @ 	255 sw2?mode custom user.number !
+: Mode5 ( -- ) 	\ Set cue numbers (0 to 254)
+	custom user.number @ 255 sw2?mode custom user.number !
 	TestCues
 ;
-: Mode6 ( -- ) 							\ Set cue intensity (0 to 10)
-	custom user.intensity @ 11  sw2?mode custom user.intensity !
+: Mode6 ( -- ) 	\ Set cue intensity (0 to 10)
+	custom user.intensity @ 11 sw2?mode custom user.intensity !
 	TestCues
 ;
-: Mode7 ( -- ) 							\ Set cue numbers (0 to 10)
-	custom user.rate @ 	11  sw2?mode custom user.rate !
+: Mode7 ( -- ) 	\ Set cue numbers (0 to 10)
+	custom user.rate @ 11 sw2?mode custom user.rate !
 	TestCues
 ;
-: Mode8 ( -- ) 							\ Set cue Type (0 to 8)
-	custom user.cuetype @ 	11   sw2?mode custom user.cuetype !
+: Mode8 ( -- ) 	\ Set cue Type (0 to 8)
+	custom user.cuetype @ 11 sw2?mode custom user.cuetype !
 	TestCues
 ;
-: Mode9 ( -- ) 							\ Set Adjustment Mode (0 to 10) 
-	sensitivity @ 		11  sw2?mode sensitivity !
+: Mode9 ( -- ) 	\ Set Adjustment Mode (0 to 10) 
+	sensitivity @ 11 sw2?mode sensitivity !
 ;
-
 \ --- REM Main Routine -------------------------------------------------
 : NovaREM ( selector -- )
 	Start
@@ -275,16 +326,16 @@ PORTD 7 portpin: sw1
 		then
 		
 		case
-		 0	of  ." Mode 0 - Sleep" 			Mode0 endof
+		 0	of  ." Mode 0 - Sleep" 					Mode0 endof
 		 1	of  ." Mode 1 - Adjustable Setting" 	Mode1 endof
-		 2	of  ." Mode 2 - Light Sleep" 		Mode2 endof
-		 3	of  ." Mode 3 - Medium Sleep" 		Mode3 endof
-		 4	of  ." Mode 4 - Deep Sleep" 		Mode4 endof
-		 5	of  ." Mode 5 - Cue Flashes" 		Mode5 endof
-		 6	of  ." Mode 6 - Intensity" 		Mode6 endof
-		 7	of  ." Mode 7 - Rate" 			Mode7 endof
-		 8	of  ." Mode 8 - Type" 			Mode8 endof
-		 9	of  ." Mode 9 - Adjustable Mode" 	Mode9 endof
+		 2	of  ." Mode 2 - Light Sleep" 			Mode2 endof
+		 3	of  ." Mode 3 - Medium Sleep" 			Mode3 endof
+		 4	of  ." Mode 4 - Deep Sleep" 			Mode4 endof
+		 5	of  ." Mode 5 - Cue Flashes" 			Mode5 endof
+		 6	of  ." Mode 6 - Intensity" 				Mode6 endof
+		 7	of  ." Mode 7 - Rate" 					Mode7 endof
+		 8	of  ." Mode 8 - Type" 					Mode8 endof
+		 9	of  ." Mode 9 - Adjustable Mode" 		Mode9 endof
 		endcase
 		
 		\ wait some
@@ -294,4 +345,3 @@ PORTD 7 portpin: sw1
 	until
 	key drop
  ;
-
