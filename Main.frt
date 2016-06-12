@@ -27,34 +27,6 @@
 \
 \ Note: "$" to indicate hexadecimal, "%" for binary and "&" for decimal numbers FORTH 2012
 \
-
-decimal
-\ --- Variables -----------------------------------------------
-variable 1delay 0 1delay !
-variable mode 0 mode !
-variable submode 0 submode !
-variable submax_mode 0 submax_mode !
-variable sensitivity 0 sensitivity !
-variable scalardelay 0 scalardelay !
-
-\ --- Dreamer Variables ---------------------------------------
-variable sleepdelay 0 sleepdelay !
-variable rsensor 0 rsensor !
-variable lsensor 0 lsensor !
-variable CueCount 0 CueCount !
-variable Reset 0 Reset !
-variable alarm 0 alarm !
-
-
-\ --- Constant ------------------------------------------------
-  10 constant max_mode
-  20 1delay !
-  10 unit set.rate !
-  10 unit set.number ! 
-   1 unit set.cuetype !
-   1 scalardelay !
-   1 sensitivity !
-   
 \ --- Structure ------------------------------------------------
 begin-structure set
 	field: set.cuetype
@@ -74,6 +46,32 @@ end-structure
 
 user buffer: custom
 
+decimal
+\ --- Variables -----------------------------------------------
+variable 1delay 0 1delay !
+variable mode 0 mode !
+variable submode 0 submode !
+variable submax_mode 0 submax_mode !
+variable sensitivity 0 sensitivity !
+variable scalardelay 0 scalardelay !
+
+\ --- Dreamer Variables ---------------------------------------
+variable sleepdelay 0 sleepdelay !
+variable rsensor 0 rsensor !
+variable lsensor 0 lsensor !
+variable CueCount 0 CueCount !
+variable Reset 0 Reset !
+variable alarm 0 alarm !
+
+\ --- Constant ------------------------------------------------
+  10 constant max_mode
+  20 1delay !
+  10 unit set.rate !
+  10 unit set.number ! 
+   1 unit set.cuetype !
+   1 scalardelay !
+   1 sensitivity !
+   
 \ --- Port Assignments -----------------------------------------------
 PORTB 0 portpin: rIRled
 PORTB 1 portpin: lredled
@@ -224,7 +222,10 @@ PORTD 7 portpin: sw1
 : mode.change ( -- true/false)
 	mode @ dup 0= swap 4 > and
 ;
-: dreamalarm (--)
+: dreamalarm ( -- )
+
+;
+: alarm.clock? ( -- )
 
 ;
 : Dreamer ( -- )
@@ -239,7 +240,7 @@ PORTD 7 portpin: sw1
 			icount @ sleepdelay @ > if
 				sensor.test if 
 					CueCount @ 1+ CueCount !
-					( record time need CueCount[32] array)
+					( record time need CueCount[32] array )
 					TestCues
 					mode.change sw1? or if 0 Reset ! then
 					alarm if dreamalarm	then
