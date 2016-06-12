@@ -326,16 +326,16 @@ PORTD 7 portpin: sw1
 		then
 		
 		case
-		 0	of  ." Mode 0 - Sleep" 					Mode0 endof
-		 1	of  ." Mode 1 - Adjustable Setting" 	Mode1 endof
-		 2	of  ." Mode 2 - Light Sleep" 			Mode2 endof
-		 3	of  ." Mode 3 - Medium Sleep" 			Mode3 endof
-		 4	of  ." Mode 4 - Deep Sleep" 			Mode4 endof
-		 5	of  ." Mode 5 - Cue Flashes" 			Mode5 endof
-		 6	of  ." Mode 6 - Intensity" 				Mode6 endof
-		 7	of  ." Mode 7 - Rate" 					Mode7 endof
-		 8	of  ." Mode 8 - Type" 					Mode8 endof
-		 9	of  ." Mode 9 - Adjustable Mode" 		Mode9 endof
+		 0	of  ." Mode 0 - Sleep"				Mode0 endof
+		 1	of  ." Mode 1 - Adjustable Setting"		Mode1 endof
+		 2	of  ." Mode 2 - Light Sleep"			Mode2 endof
+		 3	of  ." Mode 3 - Medium Sleep"			Mode3 endof
+		 4	of  ." Mode 4 - Deep Sleep"			Mode4 endof
+		 5	of  ." Mode 5 - Cue Flashes"			Mode5 endof
+		 6	of  ." Mode 6 - Intensity"			Mode6 endof
+		 7	of  ." Mode 7 - Rate"				Mode7 endof
+		 8	of  ." Mode 8 - Type"				Mode8 endof
+		 9	of  ." Mode 9 - Adjustable Mode"		Mode9 endof
 		endcase
 		
 		\ wait some
