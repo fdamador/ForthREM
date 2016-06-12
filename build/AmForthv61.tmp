@@ -1,26 +1,27 @@
 <ASSEMBLER_INFO>
- <VERSION>2.2.0</VERSION>
+ <VERSION>2.2.6</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
  <WORKING_DIR>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.98\avrasm\inc</DIR>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.106\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
  <SOURCE_FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.98\avrasm\inc\m328pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.106\avrasm\inc\m328pdef.inc</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\preamble.inc</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\macros.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\user.inc</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\device.asm</FILE>
-  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.98\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.0.106\avrasm\inc\m328Pdef.inc</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/usart_0.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/usart_common.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/usart-isr-rx.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-tx-poll.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/ubrr.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/generic-isr.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\dict/rww.inc</FILE>
@@ -178,6 +179,29 @@
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/build-info.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/place.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/word.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2r_fetch.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2spirw.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-clear.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-set.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-toggle.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bracketcompile.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/do2literal.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/int-num.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2compile.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2interpret.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/not.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/notequalzero.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-dnegate.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/qmark.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-negate.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/sleep.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE>
+  <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/wdr.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth-interpreter.asm</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\dict/nrww.inc</FILE>
   <FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/exit.asm</FILE>
@@ -406,6 +430,14 @@
   <XT_USART><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart.asm</FILE><LINE>9</LINE></XT_USART>
   <PFA_USART><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart.asm</FILE><LINE>11</LINE></PFA_USART>
   <XT_BYTESWAP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/byteswap.asm</FILE><LINE>9</LINE></XT_BYTESWAP>
+  <VE_OW_RESET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>38</LINE></VE_OW_RESET>
+  <XT_OW_RESET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>43</LINE></XT_OW_RESET>
+  <PFA_OW_RESET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>45</LINE></PFA_OW_RESET>
+  <DO_NEXT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth-interpreter.asm</FILE><LINE>8</LINE></DO_NEXT>
+  <VE_OW_SLOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>131</LINE></VE_OW_SLOT>
+  <XT_OW_SLOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>136</LINE></XT_OW_SLOT>
+  <PFA_OW_SLOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>138</LINE></PFA_OW_SLOT>
+  <PFA_OW_SLOT0><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/1wire.asm</FILE><LINE>153</LINE></PFA_OW_SLOT0>
   <PFA_COLD><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/cold.asm</FILE><LINE>11</LINE></PFA_COLD>
   <intcur><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/generic-isr.asm</FILE><LINE>3</LINE></intcur>
   <intvec><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\drivers/generic-isr.asm</FILE><LINE>5</LINE></intvec>
@@ -526,7 +558,6 @@
   <PFA_CMOVE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/cmove.asm</FILE><LINE>11</LINE></PFA_CMOVE>
   <PFA_CMOVE1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/cmove.asm</FILE><LINE>26</LINE></PFA_CMOVE1>
   <PFA_CMOVE2><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/cmove.asm</FILE><LINE>21</LINE></PFA_CMOVE2>
-  <DO_NEXT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth-interpreter.asm</FILE><LINE>8</LINE></DO_NEXT>
   <VE_2SWAP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2swap.asm</FILE><LINE>10</LINE></VE_2SWAP>
   <XT_2SWAP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2swap.asm</FILE><LINE>15</LINE></XT_2SWAP>
   <PFA_2SWAP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2swap.asm</FILE><LINE>17</LINE></PFA_2SWAP>
@@ -1099,6 +1130,146 @@
   <VE_WORD><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/word.asm</FILE><LINE>10</LINE></VE_WORD>
   <XT_WORD><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/word.asm</FILE><LINE>15</LINE></XT_WORD>
   <PFA_WORD><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/word.asm</FILE><LINE>17</LINE></PFA_WORD>
+  <VE_2R_FETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2r_fetch.asm</FILE><LINE>4</LINE></VE_2R_FETCH>
+  <XT_2R_FETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2r_fetch.asm</FILE><LINE>9</LINE></XT_2R_FETCH>
+  <PFA_2R_FETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2r_fetch.asm</FILE><LINE>11</LINE></PFA_2R_FETCH>
+  <VE_2SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2spirw.asm</FILE><LINE>4</LINE></VE_2SPIRW>
+  <XT_2SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2spirw.asm</FILE><LINE>9</LINE></XT_2SPIRW>
+  <PFA_2SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/2spirw.asm</FILE><LINE>11</LINE></PFA_2SPIRW>
+  <do_spirw><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE><LINE>16</LINE></do_spirw>
+  <VE_BM_CLEAR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-clear.asm</FILE><LINE>4</LINE></VE_BM_CLEAR>
+  <XT_BM_CLEAR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-clear.asm</FILE><LINE>9</LINE></XT_BM_CLEAR>
+  <PFA_BM_CLEAR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-clear.asm</FILE><LINE>11</LINE></PFA_BM_CLEAR>
+  <VE_BM_SET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-set.asm</FILE><LINE>4</LINE></VE_BM_SET>
+  <XT_BM_SET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-set.asm</FILE><LINE>9</LINE></XT_BM_SET>
+  <PFA_BM_SET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-set.asm</FILE><LINE>11</LINE></PFA_BM_SET>
+  <VE_BM_TOGGLE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-toggle.asm</FILE><LINE>4</LINE></VE_BM_TOGGLE>
+  <XT_BM_TOGGLE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-toggle.asm</FILE><LINE>9</LINE></XT_BM_TOGGLE>
+  <PFA_BM_TOGGLE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bm-toggle.asm</FILE><LINE>11</LINE></PFA_BM_TOGGLE>
+  <VE_BRACKETCOMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bracketcompile.asm</FILE><LINE>10</LINE></VE_BRACKETCOMPILE>
+  <XT_BRACKETCOMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bracketcompile.asm</FILE><LINE>15</LINE></XT_BRACKETCOMPILE>
+  <PFA_BRACKETCOMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/bracketcompile.asm</FILE><LINE>17</LINE></PFA_BRACKETCOMPILE>
+  <XT_DO2LITERAL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/do2literal.asm</FILE><LINE>9</LINE></XT_DO2LITERAL>
+  <PFA_DO2LITERAL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/do2literal.asm</FILE><LINE>11</LINE></PFA_DO2LITERAL>
+  <VE_NUMINT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/int-num.asm</FILE><LINE>4</LINE></VE_NUMINT>
+  <XT_NUMINT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/int-num.asm</FILE><LINE>9</LINE></XT_NUMINT>
+  <PFA_NUMINT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/int-num.asm</FILE><LINE>11</LINE></PFA_NUMINT>
+  <VE_NAME2COMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2compile.asm</FILE><LINE>9</LINE></VE_NAME2COMPILE>
+  <XT_NAME2COMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2compile.asm</FILE><LINE>14</LINE></XT_NAME2COMPILE>
+  <PFA_NAME2COMPILE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2compile.asm</FILE><LINE>16</LINE></PFA_NAME2COMPILE>
+  <NAME2COMPILE1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2compile.asm</FILE><LINE>28</LINE></NAME2COMPILE1>
+  <VE_NAME2INTERPRET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2interpret.asm</FILE><LINE>9</LINE></VE_NAME2INTERPRET>
+  <XT_NAME2INTERPRET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2interpret.asm</FILE><LINE>14</LINE></XT_NAME2INTERPRET>
+  <PFA_NAME2INTERPRET><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/name2interpret.asm</FILE><LINE>16</LINE></PFA_NAME2INTERPRET>
+  <VE_NOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/not.asm</FILE><LINE>4</LINE></VE_NOT>
+  <XT_NOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/not.asm</FILE><LINE>9</LINE></XT_NOT>
+  <PFA_NOT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/not.asm</FILE><LINE>11</LINE></PFA_NOT>
+  <VE_NOTZEROEQUAL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/notequalzero.asm</FILE><LINE>4</LINE></VE_NOTZEROEQUAL>
+  <XT_NOTZEROEQUAL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/notequalzero.asm</FILE><LINE>9</LINE></XT_NOTZEROEQUAL>
+  <PFA_NOTZEROEQUAL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/notequalzero.asm</FILE><LINE>11</LINE></PFA_NOTZEROEQUAL>
+  <VE_N_SPIR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>4</LINE></VE_N_SPIR>
+  <XT_N_SPIR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>9</LINE></XT_N_SPIR>
+  <PFA_N_SPIR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>11</LINE></PFA_N_SPIR>
+  <PFA_N_SPIR_LOOP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>16</LINE></PFA_N_SPIR_LOOP>
+  <PFA_N_SPIR_LOOP1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>18</LINE></PFA_N_SPIR_LOOP1>
+  <VE_N_SPIW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>32</LINE></VE_N_SPIW>
+  <XT_N_SPIW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>37</LINE></XT_N_SPIW>
+  <PFA_N_SPIW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>39</LINE></PFA_N_SPIW>
+  <PFA_N_SPIW_LOOP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>44</LINE></PFA_N_SPIW_LOOP>
+  <PFA_N_SPIW_LOOP1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/n-spi.asm</FILE><LINE>47</LINE></PFA_N_SPIW_LOOP1>
+  <VE_POPCNT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>4</LINE></VE_POPCNT>
+  <XT_POPCNT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>9</LINE></XT_POPCNT>
+  <PFA_POPCNT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>11</LINE></PFA_POPCNT>
+  <PFA_POPCNT1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>20</LINE></PFA_POPCNT1>
+  <PFA_POPCNT2><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>22</LINE></PFA_POPCNT2>
+  <POPCNT3><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/popcnt.asm</FILE><LINE>28</LINE></POPCNT3>
+  <VE_QDNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-dnegate.asm</FILE><LINE>9</LINE></VE_QDNEGATE>
+  <XT_QDNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-dnegate.asm</FILE><LINE>14</LINE></XT_QDNEGATE>
+  <PFA_QDNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-dnegate.asm</FILE><LINE>16</LINE></PFA_QDNEGATE>
+  <DNEG1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-dnegate.asm</FILE><LINE>21</LINE></DNEG1>
+  <VE_QMARK><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/qmark.asm</FILE><LINE>4</LINE></VE_QMARK>
+  <XT_QMARK><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/qmark.asm</FILE><LINE>9</LINE></XT_QMARK>
+  <PFA_QMARK><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/qmark.asm</FILE><LINE>11</LINE></PFA_QMARK>
+  <VE_QNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-negate.asm</FILE><LINE>9</LINE></VE_QNEGATE>
+  <XT_QNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-negate.asm</FILE><LINE>14</LINE></XT_QNEGATE>
+  <PFA_QNEGATE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-negate.asm</FILE><LINE>16</LINE></PFA_QNEGATE>
+  <QNEG1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/q-negate.asm</FILE><LINE>22</LINE></QNEG1>
+  <VE_AFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>4</LINE></VE_AFETCH>
+  <XT_AFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>9</LINE></XT_AFETCH>
+  <PFA_AFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>11</LINE></PFA_AFETCH>
+  <VE_NAFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>21</LINE></VE_NAFETCH>
+  <XT_NAFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>26</LINE></XT_NAFETCH>
+  <PFA_NAFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>28</LINE></PFA_NAFETCH>
+  <VE_AFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>39</LINE></VE_AFETCHPLUS>
+  <XT_AFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>44</LINE></XT_AFETCHPLUS>
+  <PFA_AFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>46</LINE></PFA_AFETCHPLUS>
+  <VE_AFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>57</LINE></VE_AFETCHMINUS>
+  <XT_AFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>62</LINE></XT_AFETCHMINUS>
+  <PFA_AFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>64</LINE></PFA_AFETCHMINUS>
+  <VE_ASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>75</LINE></VE_ASTORE>
+  <XT_ASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>80</LINE></XT_ASTORE>
+  <PFA_ASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>82</LINE></PFA_ASTORE>
+  <VE_NASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>92</LINE></VE_NASTORE>
+  <XT_NASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>97</LINE></XT_NASTORE>
+  <PFA_NASTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>99</LINE></PFA_NASTORE>
+  <VE_ASTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>112</LINE></VE_ASTOREPLUS>
+  <XT_ASTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>117</LINE></XT_ASTOREPLUS>
+  <PFA_ASTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>119</LINE></PFA_ASTOREPLUS>
+  <VE_ASTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>130</LINE></VE_ASTOREMINUS>
+  <XT_ASTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>135</LINE></XT_ASTOREMINUS>
+  <PFA_ASTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>137</LINE></PFA_ASTOREMINUS>
+  <VE_TO_A><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>150</LINE></VE_TO_A>
+  <XT_TO_A><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>155</LINE></XT_TO_A>
+  <PFA_TO_A><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>157</LINE></PFA_TO_A>
+  <VE_A_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>165</LINE></VE_A_FROM>
+  <XT_A_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>170</LINE></XT_A_FROM>
+  <PFA_A_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-a.asm</FILE><LINE>172</LINE></PFA_A_FROM>
+  <VE_BFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>4</LINE></VE_BFETCH>
+  <XT_BFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>9</LINE></XT_BFETCH>
+  <PFA_BFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>11</LINE></PFA_BFETCH>
+  <VE_NBFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>21</LINE></VE_NBFETCH>
+  <XT_NBFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>26</LINE></XT_NBFETCH>
+  <PFA_NBFETCH><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>28</LINE></PFA_NBFETCH>
+  <VE_BFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>39</LINE></VE_BFETCHPLUS>
+  <XT_BFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>44</LINE></XT_BFETCHPLUS>
+  <PFA_BFETCHPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>46</LINE></PFA_BFETCHPLUS>
+  <VE_BFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>57</LINE></VE_BFETCHMINUS>
+  <XT_BFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>62</LINE></XT_BFETCHMINUS>
+  <PFA_BFETCHMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>64</LINE></PFA_BFETCHMINUS>
+  <VE_BSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>75</LINE></VE_BSTORE>
+  <XT_BSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>80</LINE></XT_BSTORE>
+  <PFA_BSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>82</LINE></PFA_BSTORE>
+  <VE_NBSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>92</LINE></VE_NBSTORE>
+  <XT_NBSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>97</LINE></XT_NBSTORE>
+  <PFA_NBSTORE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>99</LINE></PFA_NBSTORE>
+  <VE_BSTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>112</LINE></VE_BSTOREPLUS>
+  <XT_BSTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>117</LINE></XT_BSTOREPLUS>
+  <PFA_BSTOREPLUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>119</LINE></PFA_BSTOREPLUS>
+  <VE_BSTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>130</LINE></VE_BSTOREMINUS>
+  <XT_BSTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>135</LINE></XT_BSTOREMINUS>
+  <PFA_BSTOREMINUS><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>137</LINE></PFA_BSTOREMINUS>
+  <VE_TO_B><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>150</LINE></VE_TO_B>
+  <XT_TO_B><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>155</LINE></XT_TO_B>
+  <PFA_TO_B><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>157</LINE></PFA_TO_B>
+  <VE_B_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>165</LINE></VE_B_FROM>
+  <XT_B_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>170</LINE></XT_B_FROM>
+  <PFA_B_FROM><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/reg-b.asm</FILE><LINE>172</LINE></PFA_B_FROM>
+  <VE_SLEEP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/sleep.asm</FILE><LINE>4</LINE></VE_SLEEP>
+  <XT_SLEEP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/sleep.asm</FILE><LINE>9</LINE></XT_SLEEP>
+  <PFA_SLEEP><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/sleep.asm</FILE><LINE>11</LINE></PFA_SLEEP>
+  <VE_SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE><LINE>4</LINE></VE_SPIRW>
+  <XT_SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE><LINE>9</LINE></XT_SPIRW>
+  <PFA_SPIRW><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE><LINE>11</LINE></PFA_SPIRW>
+  <do_spirw1><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/spirw.asm</FILE><LINE>18</LINE></do_spirw1>
+  <VE_RX_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>4</LINE></VE_RX_POLL>
+  <XT_RX_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>9</LINE></XT_RX_POLL>
+  <PFA_RX_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>11</LINE></PFA_RX_POLL>
+  <XT_RXQ_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>30</LINE></XT_RXQ_POLL>
+  <VE_RXQ_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>25</LINE></VE_RXQ_POLL>
+  <PFA_RXQ_POLL><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/usart-rx-poll.asm</FILE><LINE>32</LINE></PFA_RXQ_POLL>
+  <VE_WDR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/wdr.asm</FILE><LINE>4</LINE></VE_WDR>
+  <XT_WDR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/wdr.asm</FILE><LINE>9</LINE></XT_WDR>
+  <PFA_WDR><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/wdr.asm</FILE><LINE>11</LINE></PFA_WDR>
   <DO_INTERRUPT><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth-interpreter.asm</FILE><LINE>20</LINE></DO_INTERRUPT>
   <DO_EXECUTE><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\amforth-interpreter.asm</FILE><LINE>14</LINE></DO_EXECUTE>
   <XT_ISREXEC><FILE>C:\Users\famador\Documents\Atmel Studio\7.0\amForth\amForthv61\words/isr-exec.asm</FILE><LINE>9</LINE></XT_ISREXEC>
