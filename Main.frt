@@ -234,12 +234,12 @@ PORTD 7 portpin: sw1
 	begin
 		init.dreamer
 		sw1? if sleepdelay @ 10 + sleepdelay ! then
-		CueCount @ 1+ CueCount !
+		1 CueCount +!
 		begin
 			mode.change if 0 Reset ! then
 			icount @ sleepdelay @ > if
 				sensor.test if 
-					CueCount @ 1+ CueCount !
+					1 CueCount +!
 					( record time need CueCount[32] array )
 					TestCues
 					mode.change sw1? or if 0 Reset ! then
@@ -248,7 +248,7 @@ PORTD 7 portpin: sw1
 					60000 ms
 				then
 			else
-				icount @ 1+ icount !
+				1 icount +!
 				60000 ms
 			then
 		Reset 0= until
@@ -346,3 +346,92 @@ PORTD 7 portpin: sw1
 	until
 	key drop
  ;
+ 
+\ --------------- Date & Time Task -------------------------------------
+\ create task space
+
+$20 $20 0 task: t:date&time   
+
+variable seconds
+variable minutes
+variable hours
+variable day
+variable month
+variable year
+: init.clock ( -- )
+  0 seconds !
+  0 minutes !
+  0 hours !
+  0 days !
+  1 month !
+  2016 year !
+;
+: day.month ( -- )
+	 1 days ! 1 month +!
+;
+: check.days ( day -- )
+	days @ > if day.month then
+;
+: leapyear ( -- )
+	year @ 4 mod 0= if 
+		year @ 100 mod 0= if 
+			year @ 400 mod 0= if
+				29 check.days
+			else	
+				28 check.days
+			then
+		then
+	then
+;
+\ runs every second
+: job-date&time
+  1 seconds +!
+  seconds @ 59 > if 0 seconds ! 1 minutes +! then
+  minutes @ 59 > if 0 minutes ! 1 hours +! then
+  hours @ 24 > if 0 hours ! 1 day +! then
+  month @ 
+  case
+	1 of 31 check.days endof
+	2 of leapyear endof
+	3 of 31 check.days endof
+	4 of 30 check.days endof
+	5 of 31 check.days endof
+	6 of 30 check.days endof
+	7 of 31 check.days endof
+	8 of 31 check.days endof
+	9 of 30 check.days endof
+	10 of 31 check.days endof
+	11 of 30 check.days endof
+	12 of 31 check.days endof
+  endcase
+  month @ 12 > if 1 month ! 1 year +! then
+;
+
+\ set up the task
+: setup-date&time
+  t:date&time task-init  \ create TCB in RAM
+  0 seconds !            \ more code for minutes etc
+  t:date&time tcb>tid activate
+  \ code from here is executed as task, later on
+  ['] job-date&time every-second
+;
+
+\ setup and start the task "date/time"
+: datetime-turnkey
+  onlytask                     \ set up multitasker
+  6 timer0.init timer0.start   \ 16 MHz quartz
+  \ insert task into task list
+  setup-date&time t:date&time tcb>tid alsotask
+  multi                        \ start multitasking
+;
+\ ----------- activate multitasking -------------------------------------
+ : run-turnkey ( -- )
+	\ Task-1: NovaREM
+	\ Task-2: DateTime
+	applturnkey
+	datetime-turnkey
+;
+ \ ----------- Start on Power up ----------------------------------------
+ ' NovaREM is applturnkey
+ ' run-turnkey is turnkey
+ 
