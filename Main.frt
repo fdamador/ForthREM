@@ -358,6 +358,7 @@ variable hours
 variable day
 variable month
 variable year
+
 : init.clock ( -- )
   0 seconds !
   0 minutes !
@@ -370,7 +371,7 @@ variable year
 	 1 days ! 1 month +!
 ;
 : check.days ( day -- )
-	days @ > if day.month then
+	days @ u< if day.month then
 ;
 : leapyear ( -- )
 	year @ 4 mod 0= if 
