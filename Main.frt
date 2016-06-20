@@ -359,11 +359,11 @@ variable day
 variable month
 variable year
 
-: init.clock ( -- )
+: reset.clock ( -- )
   0 seconds !
   0 minutes !
   0 hours !
-  0 days !
+  1 days !
   1 month !
   2016 year !
 ;
@@ -374,56 +374,58 @@ variable year
 	days @ u< if day.month then
 ;
 : leapyear ( -- )
-	year @ 4 mod 0= if 
-		year @ 100 mod 0= if 
-			year @ 400 mod 0= if
-				29 check.days
-			else	
-				28 check.days
-			then
-		then
+	year @ 4 mod 0= year @ 100 mod 0= and year @ 400 mod 0= or 
+	if
+		29 check.days
+	else	
+		28 check.days
 	then
 ;
 \ runs every second
 : job-date&time
-  1 seconds +!
-  seconds @ 59 > if 0 seconds ! 1 minutes +! then
-  minutes @ 59 > if 0 minutes ! 1 hours +! then
-  hours @ 24 > if 0 hours ! 1 day +! then
-  month @ 
-  case
-	1 of 31 check.days endof
-	2 of leapyear endof
-	3 of 31 check.days endof
-	4 of 30 check.days endof
-	5 of 31 check.days endof
-	6 of 30 check.days endof
-	7 of 31 check.days endof
-	8 of 31 check.days endof
-	9 of 30 check.days endof
-	10 of 31 check.days endof
-	11 of 30 check.days endof
-	12 of 31 check.days endof
-  endcase
-  month @ 12 > if 1 month ! 1 year +! then
+	begin
+		1 seconds +!
+		seconds @ 59 > if 0 seconds ! 1 minutes +! then
+		minutes @ 59 > if 0 minutes ! 1 hours +! then
+		hours @ 24 > if 0 hours ! 1 day +! then
+		month @ case
+			0 of reset.clock endof
+			1 of 31 check.days endof
+			2 of leapyear endof
+			3 of 31 check.days endof
+			4 of 30 check.days endof
+			5 of 31 check.days endof
+			6 of 30 check.days endof
+			7 of 31 check.days endof
+			8 of 31 check.days endof
+			9 of 30 check.days endof
+			10 of 31 check.days endof
+			11 of 30 check.days endof
+			12 of 31 check.days endof
+			13 of 1 month ! 1 year +! endof
+		endcase
+		1000 ms
+	again
 ;
-
 \ set up the task
 : setup-date&time
-  t:date&time task-init  \ create TCB in RAM
-  0 seconds !            \ more code for minutes etc
   t:date&time tcb>tid activate
-  \ code from here is executed as task, later on
-  ['] job-date&time every-second
+  \ words after this line are run in new task
+  job-date&time
 ;
 
 \ setup and start the task "date/time"
 : datetime-turnkey
-  onlytask                     \ set up multitasker
-  6 timer0.init timer0.start   \ 16 MHz quartz
+  t:date&time task-init			\ create TCB in RAM
+  0 seconds !            		\ more code for minutes etc
+  131 timer0.ini timer0.start   \ 8 MHz quartz
+  \ 6 timer0.init timer0.start  \ 16 MHz quartz
   \ insert task into task list
-  setup-date&time t:date&time tcb>tid alsotask
-  multi                        \ start multitasking
+  setup-date&time
+  \ activate tasks job
+  onlytask                    
+  t:date&time tcb>tid alsotask
+  multi                        	\ start multitasking
 ;
 \ ----------- activate multitasking -------------------------------------
  : run-turnkey ( -- )
