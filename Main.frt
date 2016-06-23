@@ -62,6 +62,8 @@ variable lsensor 0 lsensor !
 variable CueCount 0 CueCount !
 variable Reset 0 Reset !
 variable alarm 0 alarm !
+variable alarm.min 0 alarm.min !
+variable alarm.hour 0 alarm.hour !
 
 \ --- Constant ------------------------------------------------
   10 constant max_mode
@@ -222,8 +224,8 @@ PORTD 7 portpin: sw1
 : mode.change ( -- true/false)
 	mode @ dup 0= swap 4 > and
 ;
-: dreamalarm ( -- )
-
+: dreamalarm ( h m -- )
+	
 ;
 : alarm.clock? ( -- )
 
@@ -243,7 +245,7 @@ PORTD 7 portpin: sw1
 					( record time need CueCount[32] array )
 					TestCues
 					mode.change sw1? or if 0 Reset ! then
-					alarm if dreamalarm	then
+					alarm.clock? if dreamalarm	then
 				else
 					60000 ms
 				then
@@ -352,29 +354,50 @@ PORTD 7 portpin: sw1
 
 $20 $20 0 task: t:date&time   
 
-variable seconds
-variable minutes
-variable hours
+variable sec
+variable min
+variable hour
 variable day
 variable month
 variable year
 
 : reset.clock ( -- )
-  0 seconds !
-  0 minutes !
-  0 hours !
-  1 days !
+  0 sec !
+  0 min !
+  0 hour !
+  1 day !
   1 month !
   2016 year !
 ;
-: day.month ( -- )
-	 1 days ! 1 month +!
+: set.time ( h m s -- )
+	sec ! min ! hour !
+;
+: set.date ( YYYY MM DD -- )
+	day ! month ! year !
+;
+: set.clock ( YYYY MM DD h m s -- )
+	set.time set.date
+:
+: get.time ( -- h m s )
+	hour @ min @ sec @
+;
+: get.date ( -- YYYY MM DD )
+	year @ month @ day @
+;
+: get.clock ( -- date time )
+	get.date @ get.time @
+;
+: day1.month+ ( -- )
+	 1 day ! 1 month +!
+;
+: reset ( -- 1 0 )
+	1 0 
 ;
 : check.days ( day -- )
-	days @ u< if day.month then
+	day @ swap > if day1.month+ then
 ;
 : leapyear ( -- )
-	year @ 4 mod 0= year @ 100 mod 0= and year @ 400 mod 0= or 
+	year @ dup 4 mod 0= over 100 mod 0= and swap 400 mod 0= or 
 	if
 		29 check.days
 	else	
@@ -384,10 +407,10 @@ variable year
 \ runs every second
 : job-date&time
 	begin
-		1 seconds +!
-		seconds @ 59 > if 0 seconds ! 1 minutes +! then
-		minutes @ 59 > if 0 minutes ! 1 hours +! then
-		hours @ 24 > if 0 hours ! 1 day +! then
+		1 sec +!
+		sec @ 59 > if reset sec ! min +! then
+		min @ 59 > if reset min ! hour +! then
+		hour @ 24 > if reset hour ! day +! then
 		month @ case
 			0 of reset.clock endof
 			1 of 31 check.days endof
