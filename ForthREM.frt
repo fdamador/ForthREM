@@ -1,7 +1,7 @@
 \ 2016-04-18  FDA  changed for ProSnap ProMini rev. 13
 \ copyright 2016 by Franklin Amador
 \ hw layout
-\ arduino | atmega328p                | ProtoSnap ProMini with future NovaREM parts
+\ arduino | atmega328p                | ProtoSnap ProMini with future ForthREM parts
 \      D0 |        PD0   rx	      	  |   Tx-0    (FTDI)
 \      D1 |        PD1   tx	      	  |   Rx-I    (FTDI)
 \      D2 |        PD2   int0	      |   bz      (buzzer)
@@ -368,7 +368,7 @@ PORTD 7 portpin: sw1
 	sensitivity @ 11 sw2?mode sensitivity !
 ;
 \ --- REM Main Routine -------------------------------------------------
-: NovaREM ( selector -- )
+: ForthREM ( selector -- )
 	Start
 	0 mode !
 	20 1delay !
@@ -479,12 +479,12 @@ PORTD 7 portpin: sw1
 ;
 \ ----------- activate multitasking -------------------------------------
  : run-turnkey ( -- )
-	\ Task-1: NovaREM
+	\ Task-1: ForthREM
 	\ Task-2: DateTime
 	applturnkey
 	datetime-turnkey
 ;
  \ ----------- Start on Power up ----------------------------------------
- ' NovaREM is applturnkey
+ ' ForthREM is applturnkey
  ' run-turnkey is turnkey
  
