@@ -269,10 +269,10 @@ PORTD 7 portpin: sw1
 	mode @ dup 0= swap 4 > and
 ;
 : alarm.set ( -- )
-	alarm @ 1 sw2?mode alarm !
+	alarm @ 2 sw2?mode alarm !
 ;
 : dreamalarm ( h m -- )
-	
+	200 0 do 2 buzzer 100 ms loop
 ;
 : alarm.clock? ( -- )
 	alarm.hour @ hours @ = if 
@@ -318,7 +318,7 @@ PORTD 7 portpin: sw1
 ;
 \ --- Modes -------------------------------------------------
 : Mode0 ( -- )  \ Off unit in sleep mode
-
+	sleep
 ; 
 : Mode1 ( -- ) 	\ User Adjustable Sleep Settings
 	custom user.cuetype @   unit set.cuetype !
@@ -434,23 +434,26 @@ PORTD 7 portpin: sw1
 		1 secs +!
 		secs @ 59 > if reset secs ! mins +! then
 		mins @ 59 > if reset mins ! hours +! then
-		hours @ 24 > if reset hours ! days +! then
-		months @ case
-			0 of reset.clock endof
-			1 of 31 check.days endof
-			2 of leapyear endof
-			3 of 31 check.days endof
-			4 of 30 check.days endof
-			5 of 31 check.days endof
-			6 of 30 check.days endof
-			7 of 31 check.days endof
-			8 of 31 check.days endof
-			9 of 30 check.days endof
-			10 of 31 check.days endof
-			11 of 30 check.days endof
-			12 of 31 check.days endof
-			13 of 1 months ! 1 years +! endof
-		endcase
+		hours @ 24 > if reset hours ! days +! 
+			days @ 27 > if
+				months @ case
+					0 of reset.clock endof
+					1 of 31 check.days endof
+					2 of leapyear endof
+					3 of 31 check.days endof
+					4 of 30 check.days endof
+					5 of 31 check.days endof
+					6 of 30 check.days endof
+					7 of 31 check.days endof
+					8 of 31 check.days endof
+					9 of 30 check.days endof
+					10 of 31 check.days endof
+					11 of 30 check.days endof
+					12 of 31 check.days endof
+					13 of 1 months ! 1 years +! endof
+				endcase
+			then
+		then
 		1000 ms
 	again
 ;
