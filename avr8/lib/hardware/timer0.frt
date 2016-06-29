@@ -9,8 +9,8 @@
 \  timer0.tick      -- increasing ticker
 \ 
 \ older mcu's may need
-TCCR0 constant TCCR0B
-TIMSK constant TIMSK0
+\ TCCR0 constant TCCR0B
+\ TIMSK constant TIMSK0
 
 variable timer0.tick
 

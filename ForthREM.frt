@@ -27,6 +27,7 @@
 \
 \ Note: "$" to indicate hexadecimal, "%" for binary and "&" for decimal numbers FORTH 2012
 \ -- Required & Include files ---------------------------------
+#require timer0.frt
 #require multitask.frt
 #require case.frt
 #require ms.frt
@@ -36,7 +37,6 @@
 #require structures.frt
 #require marker.frt
 #require analog.frt
-#include Main.frt
 
 \ --- Structure ------------------------------------------------
 begin-structure set
@@ -72,10 +72,12 @@ variable rsensor 0 rsensor !
 variable lsensor 0 lsensor !
 variable CueCount 0 CueCount !
 variable Reset 0 Reset !
+
 \ -- Alarm Variables ------------------------------------------
 variable alarm 0 alarm !
 variable alarm.min 0 alarm.min !
 variable alarm.hour 0 alarm.hour !
+
 \ --- Clock Variables -----------------------------------------
 variable secs
 variable mins
@@ -148,7 +150,7 @@ PORTD 7 portpin: sw1
 ;
 : set.clock ( YYYY MM DD h m s -- )
 	set.time set.date
-:
+;
 : get.time ( -- h m s )
 	hours @ mins @ secs @
 ;
@@ -218,7 +220,7 @@ PORTD 7 portpin: sw1
 		sw2? if
 			1 submode 1+
 			submode @ dup Test.LED 
-			submax_mode @ u>= if 0 submode ! then 
+			submax_mode @ > if 0 submode ! then 
 		then
 		\ wait some
 		1delay @ 5 * ms
@@ -408,6 +410,7 @@ PORTD 7 portpin: sw1
  
 \ --------------- Date & Time Task -------------------------------------
 \ create task space
+$20 $20 0 task: t:date&time  
 
 : reset ( -- 1 0 )
 	1 0 
@@ -466,9 +469,9 @@ PORTD 7 portpin: sw1
 
 \ setup and start the task "date/time"
 : datetime-turnkey
-  t:date&time task-init			\ create TCB in RAM
-  0 seconds !            		\ more code for minutes etc
-  131 timer0.ini timer0.start   \ 8 MHz quartz
+  t:date&time task-init     \ create TCB in RAM
+  0 secs !            		\ more code for minutes etc
+  131 timer0.init timer0.start   \ 8 MHz quartz
   \ 6 timer0.init timer0.start  \ 16 MHz quartz
   \ insert task into task list
   setup-date&time
