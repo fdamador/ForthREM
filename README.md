@@ -1,4 +1,6 @@
 # ForthREM
+[Forth](https://en.wikipedia.org/wiki/Forth_(programming_language)) Programming on Arduino Microcontroller with [AmForth](http://amforth.sourceforge.net/)
+
 REM dream mask using "amforth v6.1 ATmega328p"
 
 Settings:
